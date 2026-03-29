@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# Function to check there is enough disk space and memory
+check_system_resources(){
+    available_disk_space=$(df -h / | awk 'NR==2 {print $4}' | sed 's/G//')
+    available_ram=$(free -m | awk 'NR==2 {print $7}')
+
+    if [[ $"available_disk_space" -lt 1 || $"available_ram" -lt 512 ]]; then
+        echo "Error: Insufficient system resources."
+	exit 1
+    fi
+
+    echo "System resources check passed!"
+}
