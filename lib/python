@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+# Function to setup Python project
+setup_py(){
+    NAME="$1"
+
+    echo "Initializing Python project..."
+
+    mkdir -p "$NAME"/src \
+    	     "$NAME"/tests \
+	     "$NAME"/.venv
+
+    # Check that the directories exist
+    if [[ -d "$NAME"/src \
+	    && -d "$NAME"/tests \
+	    && -d "$NAME"/.venv ]]; then
+
+	    echo "Project directories successfully created."
+	    echo "Creating project files..."
+
+        touch "$NAME"/src/main.py \
+    	    "$NAME"/requirements.txt \
+	    "$NAME"/README.md \
+	    "$NAME"/.gitignore \
+	    "$NAME"/.python-version
+
+	# Check that the files exist
+	if [[ -f "$NAME"/src/main.py \
+		&& -f "$NAME"/requirements.txt \
+		&& -f "$NAME"/README.md \
+		&& -f "$NAME"/.gitignore \
+		&& -f "$NAME"/.python-version ]]; then
+
+	    cat << EOF > "$NAME"/src/main.py
+def main():
+    pass
+
+if __name__ == "__main__":
+    main()
+EOF
+
+    	    echo "# "$NAME"" > "$NAME"/README.md
+    	    echo "Python project is ready!"
+        else
+	    echo "Error: Files were not created. Please check your storage." >&2
+	    exit 1
+	fi
+    else
+	echo "Error: Directories were not created. Please check your storage." >&2
+	exit 1
+    fi
+} 

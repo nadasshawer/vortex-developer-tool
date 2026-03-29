@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+
+# Function to setup web project (HTML/CSS/JS)
+setup_web(){
+    NAME="$1"
+
+    echo "Initializing web project..."
+
+    mkdir -p "$NAME"/css \
+    	     "$NAME"/js \
+	     "$NAME"/assets
+
+    # Check that the directories exist
+    if [[ -d "$NAME"/css \
+	    && -d "$NAME"/js \
+	    && -d "$NAME"/assets ]]; then
+
+	echo "Project directories successfully created."
+	echo "Creating project files..."
+
+        touch "$NAME"/index.html \
+    	    "$NAME"/css/styles.css \
+	    "$NAME"/js/app.js \
+	    "$NAME"/README.md
+
+	# Check that the files exist
+	if [[ -f "$NAME"/index.html \
+		&& -f "$NAME"/css/styles.css \
+		&& -f "$NAME"/js/app.js \
+		&& -f "$NAME"/README.md ]]; then
+
+    	    cat << EOF > "$NAME"/index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <h1>Welcome to your "$NAME" web Project!</h1>
+    <script src="js/script.js"></script>
+</body>
+</html>
+EOF
+
+    	    echo "# "$NAME"" > "$NAME"/README.md
+    	    echo "Web project is ready!"
+        else
+	    echo "Error: Files were not created. Please check your storage." >&2
+	    exit 1
+	fi
+
+    else
+	echo "Error: Directories were not created. Please check your storage." >&2
+	exit 1
+    fi
+}

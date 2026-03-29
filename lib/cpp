@@ -1,0 +1,88 @@
+#!/usr/bin/env bash
+
+# Function to setup a C++ project
+setup_cpp(){
+    NAME="$1"
+    
+    echo "Initializing C++ project..."
+
+    mkdir -p "$NAME"/src \
+	     "$NAME"/include \
+	     "$NAME"/build \
+	     "$NAME"/bin \
+	     "$NAME"/tests
+
+    # Check that the directories exist
+    if [[ -d "$NAME"/src \
+	    && -d "$NAME"/include \
+	    && -d "$NAME"/build \
+	    && -d "$NAME"/bin \
+	    && -d "$NAME"/tests ]]; then
+       
+        echo "Project directories successfully created."
+	echo "Creating project files..."
+
+        touch "$NAME"/include/main.hpp \
+	    "$NAME"/src/main.cpp \
+	    "$NAME"/MakeFile \
+	    "$NAME"/.gitignore \
+	    "$NAME"/README.md
+
+	# Check if the files exits
+	if [[ -f "$NAME"/include/main.hpp \
+		&& -f "$NAME"/src/main.cpp \
+		&& -f "$NAME"/MakeFile \
+		&& -f "$NAME"/.gitignore \
+		&& -f "$NAME"/README.md ]]; then
+
+    	    cat << EOF > "$NAME"/include/main.hpp
+#ifndef MAIN_HPP
+#define MAIN_HPP
+
+// Your function declarations go here
+
+
+#endif
+EOF
+
+    	    cat << EOF > "$NAME"/src/main.cpp
+#include <iostream>
+#include "../include/main.hpp"
+
+int main() {
+    return 0;
+}
+EOF
+
+    	    cat << EOF > "$NAME"/MakeFile
+CXX = g++
+CXXFLAGS = -Wall -Iinclude
+SRC = src/main.cpp
+TARGET = bin/app
+
+all:
+	@mkdir -p bin
+	\$(CXX) \$(CXXFLAGS) \$(SRC) -o \$(TARGET)
+
+clean:
+	rm -rf bin/*
+EOF
+
+    	    cat << EOF > "$NAME"/.gitignore
+bin/
+build/
+*.o
+.DS_Store
+EOF
+
+    	    echo "# "$NAME"" > "$NAME"/README.md
+   	    echo "C++ project is ready!"
+        else
+	    echo "Error: Files were not created. Please check your storage." >&2
+	    exit 1
+	fi
+    else
+        echo "Error: Directories were not created. Please check your storage." >&2
+	exit 1
+    fi
+}

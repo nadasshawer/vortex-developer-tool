@@ -1,0 +1,82 @@
+#! /usr/bin/env bash
+
+# This is the main file for that runs the vortex command. It checks for the type of project passed as an optional argument and executes the correct function to setup the project from the /lib directory
+
+# Variables
+PROJECT_NAME=""
+PROJECT_TYPE=""
+
+# Help manual
+if [[ "$1" == "--help" || "$1" == "-h" ]]; then
+    cat << EOF
+Usage: vortex [-n | --name] [-t | --type] [-d | --docker] [-m | --monitor] [-h | --help]
+
+A smart assistant to initialize development projects and monitor resources.
+
+Options:
+  -n, --name [NAME]    	Sets the project/folder name
+  -t, --type [TYPE]    	Sets the environment (web, python, node, etc)
+  -d, --docker         	Generates a Dockerfile
+  -m, --monitor        	Checks RAM/Disk space before starting
+  -h, --help   		Show this help manual
+
+Examples:
+  vortex -n my_web_app -t web -m
+  vortex -h
+EOF
+    exit 0
+fi
+
+# Catch user input for the flags
+while getopts ":n:t:dm" opt; do
+    case "${opt}" in
+    	n) PROJECT_NAME="$OPTARG" ;;
+	t) PROJECT_TYPE="$OPTARG" ;;
+ 	d) echo "Creating docker container..." ;;
+ 	m) echo "Checking memory for space..." ;;
+	\?)
+	    echo "Error: Invalid option -$OPTARG." >&2
+	    exit 1
+	    ;;
+	:)
+	    echo "Error: Option -$OPTARG requires an arguemnt." >&2
+	    exit 1
+	    ;;
+	*)
+	    echo "Please enter a valid flag option and its corresponding argument: -n [NAME] | -t [TYPE] | -d | -m"
+	    exit 1
+	    ;;
+    esac
+done
+
+# Check that the user entered a project name
+if [[ -z $(echo "$PROJECT_NAME" | xargs) || "$PROJECT_NAME" == -* ]]; then
+    echo "Error: Must provide a project name. Use -n [NAME]." >&2
+    exit 1
+fi
+
+# Check that the user entered a project type
+if [[ -z $(echo "$PROJECT_TYPE" | xargs) || "$PROJECT_TYPE" == -* ]]; then
+    echo "Error: Must provide a project type. Use -t [TYPE]." >&2
+    exit 1
+fi
+
+# Source helper functions (project setup functions)
+source /home/nada/vortex_project/lib/node
+source /home/nada/vortex_project/lib/express
+source /home/nada/vortex_project/lib/cpp
+source /home/nada/vortex_project/lib/python
+source /home/nada/vortex_project/lib/web
+
+# Execute project setup function depending on the project type
+case "$PROJECT_TYPE" in
+    node) setup_node "$PROJECT_NAME" ;;
+    express) setup_express "$PROJECT_NAME" ;;
+    cpp) setup_cpp "$PROJECT_NAME" ;;
+    py) setup_py "$PROJECT_NAME" ;;
+    web) setup_web "$PROJECT_NAME" ;;
+    *) 
+        echo "Project type not supported."
+	echo "Please pick one of these options: node | express | cpp | py | web"
+	exit 1 ;;
+esac	
