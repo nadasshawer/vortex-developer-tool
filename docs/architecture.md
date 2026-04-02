@@ -55,11 +55,9 @@ Vortex follows a modular design to keep the core engine lightweight:
 | -v | N/A | Runs the dependency detective for the specified stack. |
 
 ### Example Commands
-Initialize a C++ Project:
-./vortex -n my_engine -t cpp
+Initialize a C++ Project: `./vortex -n my_engine -t cpp`
 
-Check System Health:
-./vortex -m
+Check System Health: `./vortex -m`
 
-Author: Nada Shawer
-Platform: Developed for Debian/Linux Environments
+* Author: Nada Shawer
+* Platform: Developed for Debian/Linux Environments
