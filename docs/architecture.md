@@ -58,5 +58,5 @@ Vortex follows a modular design to keep the core engine lightweight:
 * Initialize a C++ Project: `./vortex -n my_engine -t cpp`
 * Check System Health: `./vortex -m`
 
-_Author: Nada Shawer_
+_Author: Nada Shawer_ <br>
 _Platform: Developed for Debian/Linux Environments_
