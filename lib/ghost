@@ -44,7 +44,7 @@ send_commit_ntf(){
     if [[ "$num_of_inserts" -ge 50 && "$num_of_inserts" -gt "$last_notified_count" ]]; then
         curl -X POST "$VORTEX_D_WEBHOOK" \
         -H "Content-Type: application/json" \
-        -d "{\"content\": \"Number of Inserts: $num_of_inserts \n Number of Deletions: $num_of_deletes\"}"
+        -d "{\"content\": \"Number of Inserts: $num_of_inserts \n Number of Deletions: $num_of_deletes\" \n Maybe its a good idea to commit now?}"
 	echo "$num_of_inserts" > "$inserts_num_file"
     fi
 }
