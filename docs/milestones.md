@@ -12,11 +12,13 @@
 - Developed a dependency detective using the command utility to verify Git, Node, and Docker.
 - Implemented error handling logic to halt execution if system requirements are not met.
 
-## Milestone 3: Ghost Essentials
-- Development of a background file watcher to monitor project activity.
-- Implementation of the ghost committer to provide automated git reminders.
-- Creation of the time machine module for automated local backups.
+## Milestone 3: Ghost Essentials (COMPLETED - April 2026)
+- [x] **Automated Activity Monitoring**: Engineered a background Git watcher using `systemd.timer` for 5-minute interval polling.
+- [x] **Smart Discord Integration**: Developed a webhook-based notification system that triggers only on 50+ line insertions.
+- [x] **State-Aware Logic**: Implemented a temporary state file in `/tmp/` to track notification history and prevent redundant pings.
+- [x] **Interactive Configuration**: Created a first-run setup flow in `lib/ghost` that prompts for and persists the Discord Webhook URL.
+- [x] **Systemd User-Space Architecture**: Migrated script execution from manual loops to a `oneshot` systemd service with environment-agnostic pathing (`%h`).
 
-## Milestone 4: Production Deployment
-- Integration of automated Docker containerization for project environments.
-- Development of the live portal feature to provide instant public URLs for previews.
+## Milestone 4: Production Deployment (IN PROGRESS)
+- [ ] Integration of automated Docker containerization for project environments.
+- [ ] Development of the live portal feature to provide instant public URLs for previews.

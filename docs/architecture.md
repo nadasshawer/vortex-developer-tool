@@ -23,16 +23,23 @@ Vortex handles the tedious parts of version control:
 * Identity Verification: Automatically checks git config and prompts for setup if identity is missing.
 * Remote Linking: Initializes local repositories, handles initial commits, performs upstream rebasing, and pushes to remote branches in one fluid motion.
 
+### 4. Ghost Mode: Background Guard
+Vortex includes an autonomous background engine ("The Ghost") that monitors developer productivity:
+* **Passive Watcher**: Uses a systemd timer to monitor uncommitted changes without impacting terminal performance.
+* **Smart Pings**: Calculates git diffs and sends Discord notifications only when significant work (50+ lines) remains uncommitted.
+* **Auto-Provisioning**: Detects missing configurations and provides an interactive terminal prompt to set up Discord webhooks on the first run.
+
 ---
 
 ## Technical Architecture
 
 Vortex follows a modular library design pattern to keep the core engine lightweight and maintainable:
 
-* vortex: The main entry point using getopts for high-speed flag parsing.
-* lib/guard: The system health and resource monitoring module.
-* lib/github_setup: The logic layer for Git initialization and remote connectivity.
-* lib/blueprints/: A specialized directory containing the environment-specific injection scripts for Web, Node, C++, Python, and Express.
+* **vortex**: The main entry point using getopts for high-speed flag parsing.
+* **lib/guard**: The system health and resource monitoring module.
+* **lib/ghost**: The background monitoring engine (Triggered via `vortex-ghost.timer`).
+* **lib/github_setup**: The logic layer for Git initialization and remote connectivity.
+* **lib/blueprints/**: Specialized injection scripts for Web, Node, C++, Python, and Express.
 
 ---
 
