@@ -1,8 +1,20 @@
 #! /usr/bin/env bash
 
-# This is the main file for that runs the vortex command. It checks for the type of project passed as an optional argument and executes the correct function to setup the project from the /lib directory
+# This is the main file for that runs the vortex command. It checks for the type of project passed as an optional argument and executes the correct function to setup the project from /vortex_project/lib/blueprints
 
-# Variables
+# Source helper functions
+source /home/nada/vortex_project/lib/guard
+source /home/nada/vortex_project/lib/blueprints/node
+source /home/nada/vortex_project/lib/blueprints/express
+source /home/nada/vortex_project/lib/blueprints/cpp
+source /home/nada/vortex_project/lib/blueprints/python
+source /home/nada/vortex_project/lib/blueprints/web
+source /home/nada/vortex_project/lib/github_setup
+
+# Check system resources
+check_system_resources
+
+# Global Variables
 PROJECT_NAME=""
 PROJECT_TYPE=""
 
@@ -33,7 +45,7 @@ while getopts ":n:t:dm" opt; do
     	n) PROJECT_NAME="$OPTARG" ;;
 	t) PROJECT_TYPE="$OPTARG" ;;
  	d) echo "Creating docker container..." ;;
- 	m) echo "Checking memory for space..." ;;
+ 	m) display_system_stats ;;
 	\?)
 	    echo "Error: Invalid option -$OPTARG." >&2
 	    exit 1
@@ -61,12 +73,7 @@ if [[ -z $(echo "$PROJECT_TYPE" | xargs) || "$PROJECT_TYPE" == -* ]]; then
     exit 1
 fi
 
-# Source helper functions (project setup functions)
-source /home/nada/vortex_project/lib/node
-source /home/nada/vortex_project/lib/express
-source /home/nada/vortex_project/lib/cpp
-source /home/nada/vortex_project/lib/python
-source /home/nada/vortex_project/lib/web
+check_dependency "$PROJECT_TYPE"
 
 # Execute project setup function depending on the project type
 case "$PROJECT_TYPE" in
@@ -78,5 +85,9 @@ case "$PROJECT_TYPE" in
     *) 
         echo "Project type not supported."
 	echo "Please pick one of these options: node | express | cpp | py | web"
-	exit 1 ;;
+	exit 1 
+	;;
 esac	
+
+check_and_set_github_identity
+init_repo

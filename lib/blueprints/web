@@ -2,34 +2,34 @@
 
 # Function to setup web project (HTML/CSS/JS)
 setup_web(){
-    NAME="$1"
+    local project_name="$1"
 
     echo "Initializing web project..."
 
-    mkdir -p "$NAME"/css \
-    	     "$NAME"/js \
-	     "$NAME"/assets
+    mkdir -p "$project_name"/css \
+    	     "$project_name"/js \
+	     "$project_name"/assets
 
     # Check that the directories exist
-    if [[ -d "$NAME"/css \
-	    && -d "$NAME"/js \
-	    && -d "$NAME"/assets ]]; then
+    if [[ -d "$project_name"/css \
+	    && -d "$project_name"/js \
+	    && -d "$project_name"/assets ]]; then
 
 	echo "Project directories successfully created."
 	echo "Creating project files..."
 
-        touch "$NAME"/index.html \
-    	    "$NAME"/css/styles.css \
-	    "$NAME"/js/app.js \
-	    "$NAME"/README.md
+        touch "$project_name"/index.html \
+    	    "$project_name"/css/styles.css \
+	    "$project_name"/js/app.js \
+	    "$project_name"/README.md
 
 	# Check that the files exist
-	if [[ -f "$NAME"/index.html \
-		&& -f "$NAME"/css/styles.css \
-		&& -f "$NAME"/js/app.js \
-		&& -f "$NAME"/README.md ]]; then
+	if [[ -f "$project_name"/index.html \
+		&& -f "$project_name"/css/styles.css \
+	 	&& -f "$project_name"/js/app.js \
+		&& -f "$project_name"/README.md ]]; then
 
-    	    cat << EOF > "$NAME"/index.html
+    	    cat << EOF > "$project_name"/index.html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,13 +39,13 @@ setup_web(){
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <h1>Welcome to your "$NAME" web Project!</h1>
+    <h1>Welcome to your "$project_name" web Project!</h1>
     <script src="js/script.js"></script>
 </body>
 </html>
 EOF
 
-    	    echo "# "$NAME"" > "$NAME"/README.md
+    	    echo "# "$project_name"" > "$project_name"/README.md
     	    echo "Web project is ready!"
         else
 	    echo "Error: Files were not created. Please check your storage." >&2

@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+
+# File with the channel webhook for where to send the notification
+CONFIG_FILE="$HOME/.vortex_config"
+
+# Check the config file exists, if not create it
+if [[ -f "$CONFIG_FILE" ]]; then
+    source "$CONFIG_FILE"
+else
+    echo "Error: Webhook not configured in $CONFIG_FILE"
+    exit 1
+fi
+
+# Temp file to store the notified count so it's not lost after systemd ends
+inserts_num_file="/tmp/vortex_ghost_state$(whoami)"
+
+# Global variable that stores the last count where the user was given a notification in a file
+last_notified_count=$(cat "$inserts_num_file" 2> /dev/null || echo 0)
+
+# Get number of insertions and deletions in a project directory
+num_of_mods_in_dir(){
+    local num_of_mod_lines=$(git diff --shortstat)
+    num_of_inserts=0
+    num_of_deletes=0
+
+    if [[ -n $(echo "$num_of_mod_lines" | xargs) ]]; then
+        num_of_inserts=$(echo "$num_of_mod_lines" | cut -d',' -f2 | awk {'print $1'})
+	num_of_deletes=$(echo "$num_of_mod_lines" | cut -d',' -f3 | awk {'print $1'})
+    fi
+
+    [[ -z $(echo "$num_of_inserts" | xargs) ]] && num_of_inserts=0
+    [[ -z $(echo "$num_of_deletes" | xargs) ]] && num_of_deletes=0
+}
+
+num_of_mods_in_dir	# call the function
+
+# Send notification msg to discord channel if the user made 50+ insertions
+send_commit_ntf(){
+    if [[ "$num_of_inserts" -ge 50 && "$num_of_inserts" -gt "$last_notified_count" ]]; then
+        curl -X POST "$VORTEX_WEBHOOK" \
+        -H "Content-Type: application/json" \
+        -d "{\"content\": \"Number of Inserts: $num_of_inserts \n Number of Deletions: $num_of_deletes\"}"
+	echo "$num_of_inserts" > "$inserts_num_file"
+    fi
+}
+
+send_commit_ntf		# call the function

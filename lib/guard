@@ -1,14 +1,105 @@
 #!/usr/bin/env bash
 
-# Function to check there is enough disk space and memory
+# Check there is enough disk space and memory (silent check before the vortex command runs anything else)
 check_system_resources(){
-    available_disk_space=$(df -h / | awk 'NR==2 {print $4}' | sed 's/G//')
-    available_ram=$(free -m | awk 'NR==2 {print $7}')
+    local available_disk_space=$(df -BG / --output=avail | tail -1 | sed 's/G//' | xargs)
+    local available_ram=$(free -m | awk '/^Mem:/ {print $NF}')
 
-    if [[ $"available_disk_space" -lt 1 || $"available_ram" -lt 512 ]]; then
-        echo "Error: Insufficient system resources."
+    if (( $(echo "$available_disk_space < 1" | bc -l) )); then
+        echo "Error: Insufficient disk space."
+	exit 1
+    fi
+
+    if [[ "$available_ram" -lt 256 ]]; then
+        echo "Error: Insufficient memory space."
 	exit 1
     fi
 
     echo "System resources check passed!"
+}
+
+# Print system resources stats to user when they type the -m flag
+display_system_stats(){
+    ds_size=$(df -BG / --output=size | tail -1 | sed 's/G//' | xargs)
+    ds_used=$(df -BG / --output=used | tail -1 | sed 's/G//' | xargs)
+    ds_avail=$(df -BG / --output=avail | tail -1 | sed 's/G//' | xargs)
+    ds_use_percent=$(df -BG / --output=pcent | tail -1 | sed 's/G//' | xargs)
+    m_total=$(free -m | awk '/^Mem:/ {print $2}')
+    m_used=$(free -m | awk '/^Mem:/ {print $3}')
+    m_free=$(free -m | awk '/^Mem:/ {print $NF}')
+
+    # Print stats as a report
+    echo -e "\n\e[1;34mVORTEX SYSTEM REPORT\e[0m"
+    echo "------------------------------------------"
+    
+    # Format as table
+    (
+    echo "Resource Total Used Avail/Free Usage%"
+    echo "Disk ${ds_size}G ${ds_used}G ${ds_avail}G ${ds_use_percent}"
+    echo "RAM ${m_total}M ${m_used}M ${m_free}M ---"
+    ) | column -t
+    
+    echo "------------------------------------------"
+}
+
+# Hints for missing dependencies
+give_hint(){
+    case "$1" in
+        node|npm) echo "Hint: Try 'sudo apt install nodejs npm'" >&2 ;;
+	g++|make) echo "Hint: Try 'sudo apt install build-essential'" >&2 ;;
+	python3|pip3) echo "Hint: Try 'sudo apt install python3-pip'" >&2 ;;
+    esac
+}
+
+# Check dependencies are installed
+check_dependency(){
+    local tool=""
+    local project_type=$1
+    echo "Checking the dependencies for $project_type project..."
+
+    case "$project_type" in
+        node)
+	    for tool in node npm; do
+	        if ! command -v "$tool" &> /dev/null; then
+                    echo "Error: $tool not installed." >&2
+		    give_hint "$tool"
+		    exit 1
+	        fi
+	    done
+	    ;;
+	express)
+	    for tool in node npm; do
+                if ! command -v "$tool" &> /dev/null; then
+                    echo "Error: $tool not installed." >&2
+                    give_hint "$tool"
+		    exit 1
+                fi
+            done
+            ;;             
+	cpp)
+	     for tool in g++ make; do
+                if ! command -v "$tool" &> /dev/null; then
+                    echo "Error: $tool not installed." >&2
+                    give_hint "$tool"
+		    exit 1
+                fi
+            done
+            ;;
+	py)
+	    for tool in python3 pip3; do
+                if ! command -v "$tool" &> /dev/null; then
+                    echo "Error: $tool not installed." >&2
+                    give_hint "$tool"
+		    exit 1
+                fi
+            done
+            ;;
+	web)
+	    echo ""
+	    ;;
+	*)
+	    echo "Please enter a valid project type." >&2
+	    exit 1
+	    ;;
+    esac
 }

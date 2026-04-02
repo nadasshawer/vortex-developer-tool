@@ -2,35 +2,35 @@
 
 # Function to setup Node.js project 
 setup_node(){
-    NAME="$1"
+    project_name="$1"
 
     echo "Initializing Node.js project..."
 
-    mkdir -p "$NAME"/src \
-    	     "$NAME"/tests \
-	     "$NAME"/config
+    mkdir -p "$project_name"/src \
+    	     "$project_name"/tests \
+	     "$project_name"/config
 
     # Check that the directories exist
-    if [[ -d "$NAME"/src \
-	    && -d "$NAME"/tests \
-	    && -d "$NAME"/config ]]; then
+    if [[ -d "$project_name"/src \
+	    && -d "$project_name"/tests \
+	    && -d "$project_name"/config ]]; then
 
         echo "Project directories successfully created."
 	echo "Creating project files..."
 
-	touch "$NAME"/src/app.js \
-    	      "$NAME"/.env \
-	      "$NAME"/README.md \
-	      "$NAME"/package.json
+	touch "$project_name"/src/app.js \
+    	      "$project_name"/.env \
+	      "$project_name"/README.md \
+	      "$project_name"/package.json
 
         # Check that the files exist
-    	if [[ -f "$NAME"/src/app.js \
-		&& -f "$NAME"/.env \
-	       	&& -f "$NAME"/README.md \
-		&& -f "$NAME"/package.json ]]; then
+    	if [[ -f "$project_name"/src/app.js \
+		&& -f "$project_name"/.env \
+	       	&& -f "$project_name"/README.md \
+		&& -f "$project_name"/package.json ]]; then
 
-	    cat << EOF > "$NAME"/src/app.js
-console.log("$NAME Node.js Project is live!");
+	    cat << EOF > "$project_name"/src/app.js
+console.log("$project_name Node.js Project is live!");
 
 // Basic logic placeholder
 const start = () => {
@@ -40,9 +40,9 @@ const start = () => {
 start();
 EOF
 
-            cat << EOF > "$NAME"/package.json
+            cat << EOF > "$project_name"/package.json
 {
-  "name": "$NAME",
+  "name": "$project_name",
   "version": "1.0.0",
   "description": "A professional Node.js project initialized by Vortex",
   "main": "src/app.js",
@@ -57,7 +57,7 @@ EOF
 }
 EOF
 
-            echo "# "$NAME"" > "$NAME"/README.md
+            echo "# "$project_name"" > "$project_name"/README.md
 	    echo "Node.js project is ready!"
         else
             echo "Error: Files were not created. Please check your storage." >&2

@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+
+# Check and set github identity for user
+check_and_set_github_identity(){
+    local git_username=$(git config user.name)
+    local git_email=$(git config user.email)
+
+    # Check user's identity
+    if [[ -z $(echo "$git_username" | xargs) ]]; then
+        read -p "Please provide your GitHub username: " git_username
+    fi
+
+    if [[ -z $(echo "$git_email" | xargs) ]]; then
+        read -p "Please provide your GitHub email: " git_email
+    fi
+
+    # Set identity
+    git config --global user.email "$git_email"
+    git config --global user.name "$git_username"
+}
+
+# Initialize github repo and connect to remote
+init_repo(){
+    read -p "Enter Remote URL: " remote_url
+    read -p "Enter Branch (press enter for default: main): " branch_name
+
+    if [[ -z $(echo "$branch_name" | xargs) ]]; then
+        echo "Branch set to default: main"
+        branch_name="main"
+    fi
+
+    while [[ -z $(echo "$remote_url" | xargs) ]]; do
+	read -p "Please provide a remote URL: " remote_url
+    done
+      
+    git init
+    git add .
+    check_and_set_github_identity
+    git commit -m "Initial commit by Vortex"
+    git branch -M "$branch_name" || { 
+        echo "Could not connect to $branch_name" >&2
+        exit 1
+        }
+    git remote add origin "$remote_url" || {
+	echo "Could not connect to remote $remote_url" >&2
+        exit 1
+	}
+    git pull origin "$branch_name" --rebase || {
+	echo "Could not rebase. Please check your remote." >&2
+        exit 1
+	}
+    git push -u origin "$branch_name" || {
+	echo "Could not push changes to $branch_name" >&2
+    	exit 1
+	}
+    echo "Your project successfully linked to remote!"       
+}

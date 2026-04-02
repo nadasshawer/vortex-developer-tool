@@ -2,36 +2,36 @@
 
 # Function to setup Python project
 setup_py(){
-    NAME="$1"
+    project_name="$1"
 
     echo "Initializing Python project..."
 
-    mkdir -p "$NAME"/src \
-    	     "$NAME"/tests \
-	     "$NAME"/.venv
+    mkdir -p "$project_name"/src \
+    	     "$project_name"/tests \
+	     "$project_name"/.venv
 
     # Check that the directories exist
-    if [[ -d "$NAME"/src \
-	    && -d "$NAME"/tests \
-	    && -d "$NAME"/.venv ]]; then
+    if [[ -d "$project_name"/src \
+	    && -d "$project_name"/tests \
+	    && -d "$project_name"/.venv ]]; then
 
 	    echo "Project directories successfully created."
 	    echo "Creating project files..."
 
-        touch "$NAME"/src/main.py \
-    	    "$NAME"/requirements.txt \
-	    "$NAME"/README.md \
-	    "$NAME"/.gitignore \
-	    "$NAME"/.python-version
+        touch "$project_name"/src/main.py \
+    	    "$project_name"/requirements.txt \
+	    "$project_name"/README.md \
+	    "$project_name"/.gitignore \
+	    "$project_name"/.python-version
 
 	# Check that the files exist
-	if [[ -f "$NAME"/src/main.py \
-		&& -f "$NAME"/requirements.txt \
-		&& -f "$NAME"/README.md \
-		&& -f "$NAME"/.gitignore \
-		&& -f "$NAME"/.python-version ]]; then
+	if [[ -f "$project_name"/src/main.py \
+		&& -f "$project_name"/requirements.txt \
+		&& -f "$project_name"/README.md \
+		&& -f "$project_name"/.gitignore \
+		&& -f "$project_name"/.python-version ]]; then
 
-	    cat << EOF > "$NAME"/src/main.py
+	    cat << EOF > "$project_name"/src/main.py
 def main():
     pass
 
@@ -39,7 +39,7 @@ if __name__ == "__main__":
     main()
 EOF
 
-    	    echo "# "$NAME"" > "$NAME"/README.md
+    	    echo "# "$project_name"" > "$project_name"/README.md
     	    echo "Python project is ready!"
         else
 	    echo "Error: Files were not created. Please check your storage." >&2
