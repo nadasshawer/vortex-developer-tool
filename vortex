@@ -45,7 +45,7 @@ while getopts ":n:t:dm" opt; do
     	n) PROJECT_NAME="$OPTARG" ;;
 	t) PROJECT_TYPE="$OPTARG" ;;
  	d) echo "Creating docker container..." ;;
- 	m) display_system_stats ;;
+ 	m) run_monitor=true ;;
 	\?)
 	    echo "Error: Invalid option -$OPTARG." >&2
 	    exit 1
@@ -73,21 +73,29 @@ if [[ -z $(echo "$PROJECT_TYPE" | xargs) || "$PROJECT_TYPE" == -* ]]; then
     exit 1
 fi
 
-check_dependency "$PROJECT_TYPE"
+# Check if the project doesn't exist already
+if [[ ! -d "$PROJECT_NAME" ]]; then
+    check_dependency "$PROJECT_TYPE"
 
-# Execute project setup function depending on the project type
-case "$PROJECT_TYPE" in
-    node) setup_node "$PROJECT_NAME" ;;
-    express) setup_express "$PROJECT_NAME" ;;
-    cpp) setup_cpp "$PROJECT_NAME" ;;
-    py) setup_py "$PROJECT_NAME" ;;
-    web) setup_web "$PROJECT_NAME" ;;
-    *) 
-        echo "Project type not supported."
-	echo "Please pick one of these options: node | express | cpp | py | web"
-	exit 1 
-	;;
-esac	
+    # Execute project setup function depending on the project type
+    case "$PROJECT_TYPE" in
+        node) setup_node "$PROJECT_NAME" ;;
+        express) setup_express "$PROJECT_NAME" ;;
+        cpp) setup_cpp "$PROJECT_NAME" ;;
+        py) setup_py "$PROJECT_NAME" ;;
+        web) setup_web "$PROJECT_NAME" ;;
+        *) 
+            echo "Project type not supported."
+	    echo "Please pick one of these options: node | express | cpp | py | web"
+	    exit 1 
+	    ;;
+    esac	
 
-check_and_set_github_identity
-init_repo
+    check_and_set_github_identity
+    init_repo "$project_name"
+fi
+
+# If the user asked for the project stats (typed the -m flag), print their stats
+if [[ "$run_monitor" == "true" ]]; then
+    display_system_stats "$PROJECT_NAME"
+fi

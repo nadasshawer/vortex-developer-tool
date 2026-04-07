@@ -21,11 +21,19 @@ check_and_set_github_identity(){
 
 # Initialize github repo and connect to remote
 init_repo(){
+    local project_dir="$1"
+    if [[ -z "$project_dir" ]]; then
+        echo "Error: no project directory passed to init_repo()" >&2
+	exit 1
+    fi
+
+    cd "$project_dir" || exit 1
+
     read -p "Enter Remote URL: " remote_url
     read -p "Enter Branch (press enter for default: main): " branch_name
 
     if [[ -z $(echo "$branch_name" | xargs) ]]; then
-        echo "Branch set to default: main"
+	echo "Branch set to default (main)"
         branch_name="main"
     fi
 
@@ -46,8 +54,7 @@ init_repo(){
         exit 1
 	}
     git pull origin "$branch_name" --rebase || {
-	echo "Could not rebase. Please check your remote." >&2
-        exit 1
+	echo "Remote appears empty or unreachable, skipping rebase..." >&2
 	}
     git push -u origin "$branch_name" || {
 	echo "Could not push changes to $branch_name" >&2

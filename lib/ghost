@@ -24,13 +24,13 @@ last_notified_count=$(cat "$inserts_num_file" 2> /dev/null || echo 0)
 
 # Get number of insertions and deletions in a git project directory
 num_of_mods_in_dir(){
-    local num_of_mod_lines=$(git diff --shortstat)
+    local stats=$(git diff --shortstat)
     num_of_inserts=0
     num_of_deletes=0
 
     if [[ -n $(echo "$num_of_mod_lines" | xargs) ]]; then
-        num_of_inserts=$(echo "$num_of_mod_lines" | cut -d',' -f2 | awk {'print $1'})
-	num_of_deletes=$(echo "$num_of_mod_lines" | cut -d',' -f3 | awk {'print $1'})
+        num_of_inserts=$(echo "$stats" | grep -oP '\d+(?= insertion)')
+	num_of_deletes=$(echo "$stats" | grep -oP '\d+(?= deletion)')
     fi
 
     [[ -z $(echo "$num_of_inserts" | xargs) ]] && num_of_inserts=0
@@ -44,8 +44,9 @@ send_commit_ntf(){
     if [[ "$num_of_inserts" -ge 50 && "$num_of_inserts" -gt "$last_notified_count" ]]; then
         curl -X POST "$VORTEX_D_WEBHOOK" \
         -H "Content-Type: application/json" \
-        -d "{\"content\": \"Number of Inserts: $num_of_inserts \n Number of Deletions: $num_of_deletes\" \n Maybe its a good idea to commit now?}"
-	echo "$num_of_inserts" > "$inserts_num_file"
+        -d "{\"content\": \"**VORTEX GHOST ALERT**\nInsertions: $num_of_inserts\nDeletions: $num_of_deletes\n\nMaybe it is a good time to commit now?\"}"
+
+        echo "$num_of_inserts" > "$inserts_num_file"
     fi
 }
 

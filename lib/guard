@@ -20,26 +20,40 @@ check_system_resources(){
 
 # Print system resources stats to user when they type the -m flag
 display_system_stats(){
-    ds_size=$(df -BG / --output=size | tail -1 | sed 's/G//' | xargs)
-    ds_used=$(df -BG / --output=used | tail -1 | sed 's/G//' | xargs)
-    ds_avail=$(df -BG / --output=avail | tail -1 | sed 's/G//' | xargs)
-    ds_use_percent=$(df -BG / --output=pcent | tail -1 | sed 's/G//' | xargs)
-    m_total=$(free -m | awk '/^Mem:/ {print $2}')
-    m_used=$(free -m | awk '/^Mem:/ {print $3}')
-    m_free=$(free -m | awk '/^Mem:/ {print $NF}')
+    local dir_name="$1"
+    
+    # Get disk/system stats
+    local ds_size=$(df -BG / --output=size | tail -1 | sed 's/G//' | xargs)
+    local ds_used=$(df -BG / --output=used | tail -1 | sed 's/G//' | xargs)
+    local ds_avail=$(df -BG / --output=avail | tail -1 | sed 's/G//' | xargs)
+    local ds_use_percent=$(df -BG / --output=pcent | tail -1 | sed 's/G//' | xargs)
+    local m_total=$(free -m | awk '/^Mem:/ {print $2}')
+    local m_used=$(free -m | awk '/^Mem:/ {print $3}')
+    local m_free=$(free -m | awk '/^Mem:/ {print $NF}')
+
+    # Get specific project stats
+    local dir_size=$(du -sh "$dir_name" | awk '{print $1}')
+    local file_count=$(find "$dir_name" -type f | wc -l)
+    local dir_count=$(find "$dir_name" -type d | wc -l)
+
 
     # Print stats as a report
     echo -e "\n\e[1;34mVORTEX SYSTEM REPORT\e[0m"
-    echo "------------------------------------------"
-    
-    # Format as table
+    echo "=========================================="
+    echo -e "\n\e[1;34mSYSTEM STATS\e[0m"
     (
     echo "Resource Total Used Avail/Free Usage%"
     echo "Disk ${ds_size}G ${ds_used}G ${ds_avail}G ${ds_use_percent}"
     echo "RAM ${m_total}M ${m_used}M ${m_free}M ---"
     ) | column -t
-    
     echo "------------------------------------------"
+    echo -e "\n\e[1;34m$dir_name PROJECT STATS\e[0m"
+    (
+    echo "Size ${dir_size}"
+    echo "Files ${file_count}"
+    echo "Folders ${dir_count}"
+    ) | column -t
+    echo "=========================================="
 }
 
 # Hints for missing dependencies
