@@ -75,10 +75,10 @@ Vortex follows a modular design to keep the core engine lightweight:
 | -h | N/A | Displays the help manual. |
 
 ### Example Commands
-Initialize a C++ Project:
+* Initialize a C++ Project:
 `./vortex -n my_engine -t cpp`
 
-Check System Health:
+* Check System Health:
 `./vortex -m`
 
 ---
