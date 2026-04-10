@@ -10,19 +10,28 @@ Vortex is a modular Bash-based automation tool designed to standardize project i
    cd vortex-developer-tool
   ```
 
-2. **Copy files to the systemd directory**
-cp systemd/* ~/.config/systemd/user/
+2. **Copy files to the systemd directory:**
+   ```bash
+   cp systemd/* ~/.config/systemd/user/
+   ```
 
-3. **Reload systemd and start the timer**
-systemctl --user daemon-reload
-systemctl --user enable --now vortex_ghost.timer
+3. **Reload systemd and start the timer:**
+   ```bash
+   systemctl --user daemon-reload
+   systemctl --user enable --now vortex_ghost.timer
+   ```
 
 4. **Run the engine:**
    ```bash
    ./vortex -n my_new_project -t node
    ```
 
-5. **Initialize Ghost Mode (Background Monitoring):**
+5. **To make Git remember your token on your machine and avoid having to enter your GitHub credentials twice:** (_optional_)
+    ```bash
+    git config --global credential.helper store
+    ```
+
+6. **Initialize Ghost Mode (Background Monitoring):**
    ```bash
    bash lib/ghost
    ```
