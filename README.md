@@ -8,14 +8,21 @@ Vortex is a modular Bash-based automation tool designed to standardize project i
    ```bash
    git clone [https://github.com/nadasshawer/vortex-developer-tool.git](https://github.com/nadasshawer/vortex-developer-tool.git)
    cd vortex-developer-tool
-   ```
+  ```
 
-2. **Run the engine:**
+2. **Copy files to the systemd directory**
+cp systemd/* ~/.config/systemd/user/
+
+3. **Reload systemd and start the timer**
+systemctl --user daemon-reload
+systemctl --user enable --now vortex_ghost.timer
+
+4. **Run the engine:**
    ```bash
    ./vortex -n my_new_project -t node
    ```
 
-3. **Initialize Ghost Mode (Background Monitoring):**
+5. **Initialize Ghost Mode (Background Monitoring):**
    ```bash
    bash lib/ghost
    ```
@@ -71,7 +78,6 @@ Vortex follows a modular design to keep the core engine lightweight:
 | -n | name | Sets the project name and root directory. |
 | -t | type | Selects stack: web, node, cpp, py, or express. |
 | -m | N/A | Generates a real-time Vortex System Report (Disk/RAM). |
-| -v | N/A | Runs the dependency detective for the specified stack. |
 | -h | N/A | Displays the help manual. |
 
 ### Example Commands
