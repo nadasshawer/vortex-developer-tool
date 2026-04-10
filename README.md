@@ -8,7 +8,7 @@ Vortex is a modular Bash-based automation tool designed to standardize project i
    ```bash
    git clone [https://github.com/nadasshawer/vortex-developer-tool.git](https://github.com/nadasshawer/vortex-developer-tool.git)
    cd vortex-developer-tool
-  ```
+   ```
 
 2. **Copy unit files to the systemd directory:**
    ```bash
@@ -26,7 +26,7 @@ Vortex is a modular Bash-based automation tool designed to standardize project i
    ./vortex -n my_new_project -t node
    ```
 
-5. **To make Git remember you and avoid having to enter your GitHub credentials twice:** (_optional_)
+5. **To make Git remember you and avoid having to enter your GitHub credentials twice (_optional_):**
     ```bash
     git config --global credential.helper store
     ```
