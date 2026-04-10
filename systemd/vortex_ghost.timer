@@ -1,0 +1,11 @@
+[Unit]
+Description=Run Vortex Ghost Git Monitor every 30 mins
+
+[Timer]
+OnStartupSec=1min
+OnUnitActiveSec=5min
+AccuracySec=1s
+Persistent=true
+
+[Install]
+WantedBy=timers.target

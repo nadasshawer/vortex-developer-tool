@@ -1,0 +1,13 @@
+[Unit]
+Description=Vortex Ghost Git Monitor
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash %h/vortex_project/lib/ghost
+Restart=on-failure
+WorkingDirectory=%h/vortex_project
+Environment=HOME=%h
+
+[Install]
+WantedBy=default.target
