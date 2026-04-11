@@ -40,6 +40,28 @@ Vortex is a modular Bash-based automation tool designed to standardize project i
 
 ---
 
+## 📁 Project Structure
+
+```text
+vortex_project/
+├── docs/                 # Project documentation and roadmap
+│   ├── architecture.md
+│   └── milestones.md
+├── lib/                  # Core logic and modules
+│   ├── blueprints/       # Project templates (C++, Express, etc.)
+│   ├── docker            # Docker scaffolding logic
+│   ├── ghost             # The "Ghost" background monitor script
+│   ├── github_setup      # Automation for GitHub integration
+│   └── guard             # Input validation and security checks
+├── systemd/              # Service files for Linux automation
+│   ├── vortex_ghost.service
+│   └── vortex_ghost.timer
+├── vortex                # Main executable entry point
+└── README.md             # You are here!
+```
+
+---
+
 ## 🛠️ Key Features
 
 ### 1. Multi-Stack Blueprinting
@@ -77,6 +99,7 @@ Vortex follows a modular design to keep the core engine lightweight:
 * **lib/guard**: The system health and resource monitoring module.
 * **lib/ghost**: The background monitoring engine triggered via systemd.
 * **lib/github_setup**: The logic layer for Git initialization and remote connectivity.
+* **lib/docker**: The logic layer for Docker containerization (creates the Dockerfile, docker-compose.yaml, and .dockerignore files).
 * **lib/blueprints/**: Scripts for injecting Web, Node, C++, Python, and Express files.
 
 ---
