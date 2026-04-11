@@ -11,7 +11,7 @@ FROM python:3.11-slim
 WORKDIR /app
 COPY . .
 RUN pip install --no-cache-dir -r requirements.txt
-CMD ["python", "main.py"]
+CMD ["python", "src/main.py"]
 EOF
     fi
 
@@ -22,7 +22,7 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
-CMD ["node", "app.js"]		
+CMD ["node", "src/app.js"]		
 EOF
     fi
 
@@ -31,8 +31,8 @@ EOF
 FROM gcc:latest
 WORKDIR /app
 COPY . .
-RUN g++ -o myapp main.cpp
-CMD ["./myapp"]
+RUN make
+CMD ["./bin/app"]
 EOF
     fi
 
@@ -50,8 +50,9 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
+RUN npm run build
 EXPOSE 3000
-CMD ["node", "index.js"]
+CMD ["node", "dist/app.js"]
 EOF
     fi
 }
@@ -71,7 +72,6 @@ EOF
     fi
 
     cat << EOF > "$project_name/docker-compose.yaml"
-version: '3.8'
 services:
   app:
     build: .

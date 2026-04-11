@@ -29,7 +29,7 @@ setup_express(){
     	touch "$project_name"/.env \
             "$project_name"/.gitignore \
 	    "$project_name"/README.md \
-	    "$project_name"/app.ts \
+	    "$project_name"/src/app.ts \
 	    "$project_name"/package.json \
 	    "$project_name"/tsconfig.json \
 	    "$project_name"/views/index.ejs \
@@ -39,14 +39,14 @@ setup_express(){
 	if [[ -f "$project_name"/.env \
 		&& -f "$project_name"/.gitignore \
 		&& -f "$project_name"/README.md \
-		&& -f "$project_name"/app.ts \
+		&& -f "$project_name"/src/app.ts \
 		&& -f "$project_name"/package.json \
 		&& -f "$project_name"/tsconfig.json \
 		&& -f "$project_name"/views/index.ejs \
 		&& -f "$project_name"/public/css/styles.css ]]; then
 
 
-    	    cat << EOF > "$project_name"/app.ts
+    	    cat << EOF > "$project_name"/src/app.ts
 import express, { Request, Response } from 'express';
 import dotenv from 'dotenv';
 
