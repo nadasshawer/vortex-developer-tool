@@ -10,33 +10,17 @@ Vortex is a modular Bash-based automation tool designed to standardize project i
    cd vortex-developer-tool
    ```
 
-2. **Copy unit files to the systemd directory:**
-   ```bash
-   cp systemd/* ~/.config/systemd/user/
-   ```
-
-3. **Reload systemd and start the timer:**
-   ```bash
-   systemctl --user daemon-reload
-   systemctl --user enable --now vortex_ghost.timer
-   ```
-
-4. **Run the engine:**
-   ```bash
-   ./vortex -n my_new_project -t node
-   ```
-
-5. **To make Git remember you and avoid having to enter your GitHub credentials twice (_optional_):**
+2. **Run the Installer:** This will set up your systemd timers, permissions, and background monitoring automatically.
     ```bash
-    git config --global credential.helper store
+    bash install
     ```
-
-6. **Initialize Ghost Mode (Background Monitoring):**
-   ```bash
-   bash lib/ghost
-   ```
-
-**Note:** If the Ghost isn't pinging your Discord, ensure your Webhook URL is set in `~/.vortex_config` and that you've made at least 50 modifications in the `vortex_project` directory!
+    
+3. **Create your first project:**
+    ```bash
+    ./vortex -n my_new_project -t node
+    ```
+    
+**Note:** The first time you run a command or the Ghost monitor activates, you will be prompted to enter your Discord Webhook URL. This will be saved in `~/.vortex_config`.
 
 ---
 
@@ -136,3 +120,10 @@ Vortex follows a modular design to keep the core engine lightweight:
 - [x] **Milestone 3**: Ghost Essentials (Systemd integration & Discord pings).
 - [x] **Milestone 4**: Automated Docker containerization.
 
+## 💡 Pro-Tips
+
+### Streamline your GitHub Workflow
+If you find yourself entering your GitHub credentials every time Vortex pushes a project, you can tell Git to remember you:
+```bash
+git config --global credential.helper store
+```

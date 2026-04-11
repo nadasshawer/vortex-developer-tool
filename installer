@@ -12,7 +12,7 @@ if [[ ! -d "$HOME/.config/systemd/user" ]]; then
 fi
 
 # Move systemd files (service & timer) to ~/.config/systemd/user/ so systemd can run them
-cp systemd/vortex_ghost.service systemd/vortex_ghost.timer "$HOME/.config/systemd/user"
+cp systemd/* "$HOME/.config/systemd/user"
 
 # Make the scripts executable
 chmod +x "$SCRIPT_DIR/vortex"
