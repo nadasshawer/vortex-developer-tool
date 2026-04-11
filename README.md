@@ -12,7 +12,7 @@ Vortex is a modular Bash-based automation tool designed to standardize project i
 
 2. **Run the Installer:** This will set up your systemd timers, permissions, and background monitoring automatically.
     ```bash
-    bash install
+    bash installer
     ```
     
 3. **Create your first project:**
