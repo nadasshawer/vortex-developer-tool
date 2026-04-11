@@ -95,8 +95,8 @@ if [[ ! -d "$PROJECT_NAME" ]]; then
 	    ;;
     esac	
 
-    #check_and_set_github_identity
-    #init_repo "$project_name"
+    check_and_set_github_identity
+    init_repo "$project_name"
 fi
 
 # If the user asked for the project stats (typed the -m flag), print their stats

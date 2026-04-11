@@ -6,7 +6,7 @@ Vortex is a modular Bash-based automation tool designed to standardize project i
 
 1. **Clone the repository:**
    ```bash
-   git clone [https://github.com/nadasshawer/vortex-developer-tool.git](https://github.com/nadasshawer/vortex-developer-tool.git)
+   git clone https://github.com/nadasshawer/vortex-developer-tool.git
    cd vortex-developer-tool
    ```
 
