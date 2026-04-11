@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+# This is the installer file that the user will download on their machine and run to get the vortex system up and working on their machine.
+
+# Find the directory this script is currently in and where the destination is (user's home dir)
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Check that the systemd directory exists
+# If the user has a brand new Linux install, systemd/ might not exist yet
+if [[ ! -d "$HOME/.config/systemd/user" ]]; then
+    mkdir -p "$HOME/.config/systemd/user"
+fi
+
+# Move systemd files (service & timer) to ~/.config/systemd/user/ so systemd can run them
+cp systemd/vortex_ghost.service systemd/vortex_ghost.timer "$HOME/.config/systemd/user"
+
+# Make the scripts executable
+chmod +x "$SCRIPT_DIR/vortex"
+chmod -R +x "$SCRIPT_DIR/lib"
+
+# Wake up the system
+systemctl --user daemon-reload
+systemctl --user enable vortex_ghost.timer
+systemctl --user start vortex_ghost.timer
+
+echo "Vortex is installed and active! Try creating your first project with: ./vortex -n [NAME] -t [TYPE]."
