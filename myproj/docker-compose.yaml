@@ -1,6 +1,0 @@
-services:
-  app:
-    build: .
-    container_name: myproj_container
-    ports:
-      - "8080:3000"
