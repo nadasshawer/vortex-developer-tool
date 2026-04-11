@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# This is the script that creates the Dockerfile, docker-compose.yaml, and .dockerignore files for automated containerization.
+
 # Creates Dockerfile based on the project type
 create_docker_file(){
     project_name="$1"

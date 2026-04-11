@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# This is the installer file that the user will download on their machine and run to get the vortex system up and working on their machine.
+# This is the installer script that the user will download on their machine and run to get the vortex system up and working on their machine.
 
 # Find the directory this script is currently in and where the destination is (user's home dir)
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

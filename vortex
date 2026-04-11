@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-# This is the main file that runs the vortex command. It checks for the type of project passed as an positional argument and executes the correct function to setup the project from /vortex_project/lib/blueprints
+# This is the main script that runs the vortex command. It checks for the type of project passed as an positional argument and executes the correct function to setup the project from /vortex_project/lib/blueprints
 
 # Get the directory where the script actually lives
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

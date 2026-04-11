@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# This is the script that acts like a "ghost" and watches the user's git history to remind them to commit their changes if they make 50 or more modifications in their repo directory.
+
 # cd into the project directory because we need to be inside a git repo
 cd $HOME/vortex_project || { echo "Error: Could not find project directory"; exit 1; }
 

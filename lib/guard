@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# This is the script that checks the user has sufficient memory, system resources, and the required dependencies to actually create their project. It also generates a specific system/project stats report if they run the -m flag.
+
 # Check there is enough disk space and memory (silent check before the vortex command runs anything else)
 check_system_resources(){
     local available_disk_space=$(df -BG / --output=avail | tail -1 | sed 's/G//' | xargs)

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# This is the script that setups the user's git identity (if not already set), initializes their github repo, and connects to their remote.
+
 # Check and set github identity for user
 check_and_set_github_identity(){
     local git_username=$(git config user.name)
