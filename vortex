@@ -2,7 +2,7 @@
 
 # This is the main file for that runs the vortex command. It checks for the type of project passed as an optional argument and executes the correct function to setup the project from /vortex_project/lib/blueprints
 
-# Source helper functions
+# Source helper functions/files
 source /home/nada/vortex_project/lib/guard
 source /home/nada/vortex_project/lib/blueprints/node
 source /home/nada/vortex_project/lib/blueprints/express
@@ -10,6 +10,7 @@ source /home/nada/vortex_project/lib/blueprints/cpp
 source /home/nada/vortex_project/lib/blueprints/python
 source /home/nada/vortex_project/lib/blueprints/web
 source /home/nada/vortex_project/lib/github_setup
+source /home/nada/vortex_project/lib/docker
 
 # Check system resources
 check_system_resources
@@ -44,7 +45,7 @@ while getopts ":n:t:dm" opt; do
     case "${opt}" in
     	n) PROJECT_NAME="$OPTARG" ;;
 	t) PROJECT_TYPE="$OPTARG" ;;
- 	d) echo "Creating docker container..." ;;
+ 	d) create_docker_container=true ;;
  	m) run_monitor=true ;;
 	\?)
 	    echo "Error: Invalid option -$OPTARG." >&2
@@ -80,9 +81,9 @@ if [[ ! -d "$PROJECT_NAME" ]]; then
     # Execute project setup function depending on the project type
     case "$PROJECT_TYPE" in
         node) setup_node "$PROJECT_NAME" ;;
-        express) setup_express "$PROJECT_NAME" ;;
+        express|ex) setup_express "$PROJECT_NAME" ;;
         cpp) setup_cpp "$PROJECT_NAME" ;;
-        py) setup_py "$PROJECT_NAME" ;;
+        py|python) setup_py "$PROJECT_NAME" ;;
         web) setup_web "$PROJECT_NAME" ;;
         *) 
             echo "Project type not supported."
@@ -91,11 +92,19 @@ if [[ ! -d "$PROJECT_NAME" ]]; then
 	    ;;
     esac	
 
-    check_and_set_github_identity
-    init_repo "$project_name"
+    #check_and_set_github_identity
+    #init_repo "$project_name"
 fi
 
 # If the user asked for the project stats (typed the -m flag), print their stats
 if [[ "$run_monitor" == "true" ]]; then
     display_system_stats "$PROJECT_NAME"
+fi
+
+# If the user asked to create docker container (typed the -d flag), create docker container
+if [[ "$create_docker_container" == "true" ]]; then
+    create_docker_file "$PROJECT_NAME" "$PROJECT_TYPE"
+    create_docker_compose
+    create_docker_ignore
+    echo "Docker environment generated successfully for $PROJECT_NAME!"
 fi

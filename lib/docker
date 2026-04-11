@@ -1,0 +1,92 @@
+#!/usr/bin/env bash
+
+# Creates Dockerfile based on the project type
+create_docker_file(){
+    project_name="$1"
+    project_type="$2"
+
+    if [[ "$project_type" == "python" || "$project_type" == "py" ]]; then
+        cat << EOF > "$project_name"/Dockerfile
+FROM python:3.11-slim
+WORKDIR /app
+COPY . .
+RUN pip install --no-cache-dir -r requirements.txt
+CMD ["python", "main.py"]
+EOF
+    fi
+
+    if [[ "$project_type" == "node" ]]; then
+        cat << EOF > "$project_name"/Dockerfile
+FROM node:20-slim
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+CMD ["node", "app.js"]		
+EOF
+    fi
+
+    if [[ "$project_type" == "cpp" ]]; then
+        cat << EOF > "$project_name"/Dockerfile
+FROM gcc:latest
+WORKDIR /app
+COPY . .
+RUN g++ -o myapp main.cpp
+CMD ["./myapp"]
+EOF
+    fi
+
+    if [[ "$project_type" == "web" ]]; then
+        cat << EOF > "$project_name"/Dockerfile
+FROM nginx:alpine
+COPY . /usr/share/nginx/html
+EOF
+    fi
+
+    if [[ "$project_type" == "express" || "$project_type" == "ex" ]]; then
+    cat << EOF > "$project_name"/Dockerfile
+FROM node:20-slim
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+EXPOSE 3000
+CMD ["node", "index.js"]
+EOF
+    fi
+}
+
+# Create the compose YAML file
+create_docker_compose(){
+    local proj_with_port="web express node"
+
+    # Check if the project requires a port
+    if [[ "$proj_with_port" =~ "$project_type" ]]; then
+        port=$(cat << EOF
+    ports:
+      - "8080:3000"
+EOF
+)
+    else port=""
+    fi
+
+    cat << EOF > "$project_name/docker-compose.yaml"
+version: '3.8'
+services:
+  app:
+    build: .
+    container_name: ${project_name}_container
+$port
+EOF
+}
+
+# Create the .dockerignore file
+create_docker_ignore(){
+    cat << EOF > "$project_name/.dockerignore"
+.git
+node_modules
+.env
+Dockerfile
+docker-compose.yaml
+EOF
+}
