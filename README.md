@@ -36,6 +36,8 @@ Vortex is a modular Bash-based automation tool designed to standardize project i
    bash lib/ghost
    ```
 
+**Note:** If the Ghost isn't pinging your Discord, ensure your Webhook URL is set in `~/.vortex_config` and that you've made at least 50 modifications in the `vortex_project` directory!
+
 ---
 
 ## 🛠️ Key Features
@@ -87,14 +89,21 @@ Vortex follows a modular design to keep the core engine lightweight:
 | -n | name | Sets the project name and root directory. |
 | -t | type | Selects stack: web, node, cpp, py, or express. |
 | -m | N/A | Generates a real-time Vortex System Report (Disk/RAM). |
+| -d | N/A | Generates a containerized environment using Docker. |
 | -h | N/A | Displays the help manual. |
 
 ### Example Commands
 * Initialize a C++ Project:
-`./vortex -n my_engine -t cpp`
+`./vortex -n my_project -t node`
 
 * Check System Health:
 `./vortex -m`
+
+* Create Docker container:
+`./vortex -n my_project -t express -d`
+
+* Full stack example:
+`./vortex -n my_project -t python -m -d`
 
 ---
 
@@ -102,5 +111,5 @@ Vortex follows a modular design to keep the core engine lightweight:
 - [x] **Milestone 1**: Core Engine and CLI Switchboard.
 - [x] **Milestone 2**: System Guards and Resource Monitoring.
 - [x] **Milestone 3**: Ghost Essentials (Systemd integration & Discord pings).
-- [ ] **Milestone 4**: Automated Docker containerization and public URL tunneling.
+- [x] **Milestone 4**: Automated Docker containerization.
 
