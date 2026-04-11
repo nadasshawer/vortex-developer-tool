@@ -1,16 +1,19 @@
 #! /usr/bin/env bash
 
-# This is the main file for that runs the vortex command. It checks for the type of project passed as an optional argument and executes the correct function to setup the project from /vortex_project/lib/blueprints
+# This is the main file that runs the vortex command. It checks for the type of project passed as an positional argument and executes the correct function to setup the project from /vortex_project/lib/blueprints
+
+# Get the directory where the script actually lives
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Source helper functions/files
-source /home/nada/vortex_project/lib/guard
-source /home/nada/vortex_project/lib/blueprints/node
-source /home/nada/vortex_project/lib/blueprints/express
-source /home/nada/vortex_project/lib/blueprints/cpp
-source /home/nada/vortex_project/lib/blueprints/python
-source /home/nada/vortex_project/lib/blueprints/web
-source /home/nada/vortex_project/lib/github_setup
-source /home/nada/vortex_project/lib/docker
+source "$SCRIPT_DIR/lib/guard"
+source "$SCRIPT_DIR/lib/blueprints/node"
+source "$SCRIPT_DIR/lib/blueprints/express"
+source "$SCRIPT_DIR/lib/blueprints/cpp"
+source "$SCRIPT_DIR/lib/blueprints/python"
+source "$SCRIPT_DIR/lib/blueprints/web"
+source "$SCRIPT_DIR/lib/github_setup"
+source "$SCRIPT_DIR/lib/docker"
 
 # Check system resources
 check_system_resources
