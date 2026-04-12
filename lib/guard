@@ -35,9 +35,8 @@ display_system_stats(){
 
     # Get specific project stats
     local dir_size=$(du -sh "$dir_name" | awk '{print $1}')
+    local dir_count=$(find "$dir_name" -mindepth 1 -type d | wc -l)
     local file_count=$(find "$dir_name" -type f | wc -l)
-    local dir_count=$(find "$dir_name" -type d | wc -l)
-
 
     # Print stats as a report
     echo -e "\n\e[1;34mVORTEX SYSTEM REPORT\e[0m"
