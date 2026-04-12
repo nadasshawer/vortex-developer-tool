@@ -40,6 +40,7 @@ vortex_project/
 ├── systemd/              # Service files for Linux automation
 │   ├── vortex_ghost.service
 │   └── vortex_ghost.timer
+├── installer             # Installation script
 ├── vortex                # Main executable entry point
 └── README.md             # You are here!
 ```
