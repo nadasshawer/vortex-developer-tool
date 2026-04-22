@@ -113,6 +113,11 @@ Vortex follows a modular design to keep the core engine lightweight:
 * Full stack example:
 `./vortex -n my_project -t python -m -d`
 
+### Example Discord Notification
+
+<img width="512" height="188" alt="image" src="https://github.com/user-attachments/assets/b42eeea3-ca0d-43aa-8ff1-76ea77edd606" />
+
+
 ---
 
 ## 📈 Roadmap
