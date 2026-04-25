@@ -5,7 +5,7 @@
   <img src="https://img.shields.io/badge/Type-CLI%20Tool-5c677d?style=for-the-badge&logo=pre-commit&logoColor=white" />
   <img src="https://img.shields.io/badge/Language-Bash-4facfe?style=for-the-badge&logo=gnubash&logoColor=white" />
   <img src="https://img.shields.io/badge/Distro-Debian-A81D33?style=for-the-badge&logo=debian&logoColor=white" />
-  <img src="https://img.shields.io/badge/Platform-WSL%20%2F%20Linux-52b788?style=for-the-badge&logo=linux&logoColor=white" />
+  <img src="https://img.shields.io/badge/Platform-%20Linux-52b788?style=for-the-badge&logo=linux&logoColor=white" />
 </p>
 
 Vortex is a modular Bash-based automation tool designed to standardize project initialization, system health monitoring, and remote repository synchronization. Built for developers who value speed and system resilience, Vortex ensures that every project starts with a healthy environment and a professional directory structure.
