@@ -121,10 +121,10 @@ Vortex follows a modular design to keep the core engine lightweight:
 ---
 
 ## 📈 Roadmap
-- [x] **Milestone 1**: Core Engine and CLI Switchboard.
-- [x] **Milestone 2**: System Guards and Resource Monitoring.
-- [x] **Milestone 3**: Ghost Essentials (Systemd integration & Discord pings).
-- [x] **Milestone 4**: Automated Docker containerization.
+- [x] **Milestone 1**: Core Engine and CLI Switchboard
+- [x] **Milestone 2**: System Guards and Resource Monitoring
+- [x] **Milestone 3**: Ghost Essentials (Systemd integration & Discord pings)
+- [x] **Milestone 4**: Automated Docker containerization
 
 ## 💡 Pro-Tips
 
