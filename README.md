@@ -1,4 +1,4 @@
-# 🌪️ Vortex: Infrastructure-as-Code CLI Engine
+# 🌪️ Vortex: Developer CLI Automation Tool
 
 <p align="left">
   <img src="https://img.shields.io/badge/Type-CLI%20Tool-5c677d?style=for-the-badge&logo=pre-commit&logoColor=white" />
