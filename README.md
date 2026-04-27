@@ -9,48 +9,29 @@
 
 **Vortex** is a modular Bash-based automation tool designed to standardize project initialization, system health monitoring, and remote repository synchronization. Built for developers who value speed and system resilience, Vortex ensures that every project starts with a healthy environment and a professional directory structure.
 
-## 🚀 Quick Start
-
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/nadasshawer/vortex-developer-tool.git
-   cd vortex-developer-tool
-   ```
-
-2. **Run the Installer:** This will set up your systemd timers, permissions, and background monitoring automatically.
-    ```bash
-    bash installer
-    ```
-    
-3. **Create your first project:**
-    ```bash
-    ./vortex -n my_new_project -t node
-    ```
-    
-**Note:** The first time you run a command or the Ghost monitor activates, you will be prompted to enter your Discord Webhook URL. This will be saved in `~/.vortex_config`.
-
 ---
 
-## 📁 Project Structure
+## 🛠️ Tech Stack & Core Libraries
 
-```text
-vortex_project/
-├── docs/                 # Project documentation and roadmap
-│   ├── architecture.md
-│   └── milestones.md
-├── lib/                  # Core logic and modules
-│   ├── blueprints/       # Project templates (C++, Express, etc.)
-│   ├── docker            # Docker scaffolding logic
-│   ├── ghost             # The "Ghost" background monitor script
-│   ├── github_setup      # Automation for GitHub integration
-│   └── guard             # Input validation and security checks
-├── systemd/              # Service files for Linux automation
-│   ├── vortex_ghost.service
-│   └── vortex_ghost.timer
-├── installer             # Installation script
-├── vortex                # Main executable entry point
-└── README.md             # You are here!
-```
+**Automation & Scripting**
+<p align="left">
+  <img src="https://img.shields.io/badge/Bash-5.0+-4facfe?style=flat-square" />
+  <img src="https://img.shields.io/badge/Linux-Kernel-52b788?style=flat-square" />
+  <img src="https://img.shields.io/badge/Systemd-Timers-ce9ffc?style=flat-square" />
+</p>
+
+**DevOps & Integration**
+<p align="left">
+  <img src="https://img.shields.io/badge/Git-VCS-f34f29?style=flat-square" />
+  <img src="https://img.shields.io/badge/Docker-Containerization-2496ed?style=flat-square" />
+  <img src="https://img.shields.io/badge/Discord-Webhooks-5865f2?style=flat-square" />
+</p>
+
+**System Guards**
+<p align="left">
+  <img src="https://img.shields.io/badge/Security-Input_Validation-e05d44?style=flat-square" />
+  <img src="https://img.shields.io/badge/Health-Resource_Monitoring-dfb317?style=flat-square" />
+</p>
 
 ---
 
@@ -83,19 +64,6 @@ Vortex includes a background engine that monitors project activity:
 
 ---
 
-## 🏗️ Technical Architecture
-
-Vortex follows a modular design to keep the core engine lightweight:
-
-* **vortex**: The main entry point using getopts for flag parsing.
-* **lib/guard**: The system health and resource monitoring module.
-* **lib/ghost**: The background monitoring engine triggered via systemd.
-* **lib/github_setup**: The logic layer for Git initialization and remote connectivity.
-* **lib/docker**: The logic layer for Docker containerization (creates the Dockerfile, docker-compose.yaml, and .dockerignore files).
-* **lib/blueprints/**: Scripts for injecting Web, Node, C++, Python, and Express files.
-
----
-
 ## 📋 Usage Guide
 
 ### Flags
@@ -124,6 +92,63 @@ Vortex follows a modular design to keep the core engine lightweight:
 
 <img width="512" height="188" alt="image" src="https://github.com/user-attachments/assets/b42eeea3-ca0d-43aa-8ff1-76ea77edd606" />
 
+---
+
+## 🚀 Quick Start
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/nadasshawer/vortex-developer-tool.git
+   cd vortex-developer-tool
+   ```
+
+2. **Run the Installer:** This will set up your systemd timers, permissions, and background monitoring automatically.
+    ```bash
+    bash installer
+    ```
+    
+3. **Create your first project:**
+    ```bash
+    ./vortex -n my_new_project -t node
+    ```
+    
+**Note:** The first time you run a command or the Ghost monitor activates, you will be prompted to enter your Discord Webhook URL. This will be saved in `~/.vortex_config`.
+
+---
+
+## 🏗️ Technical Architecture
+
+Vortex follows a modular design to keep the core engine lightweight:
+
+* **vortex**: The main entry point using getopts for flag parsing.
+* **lib/guard**: The system health and resource monitoring module.
+* **lib/ghost**: The background monitoring engine triggered via systemd.
+* **lib/github_setup**: The logic layer for Git initialization and remote connectivity.
+* **lib/docker**: The logic layer for Docker containerization (creates the Dockerfile, docker-compose.yaml, and .dockerignore files).
+* **lib/blueprints/**: Scripts for injecting Web, Node, C++, Python, and Express files.
+
+---
+
+## 📁 Project Structure
+
+```text
+vortex_project/
+├── docs/                 # Project documentation and roadmap
+│   ├── architecture.md
+│   └── milestones.md
+├── lib/                  # Core logic and modules
+│   ├── blueprints/       # Project templates (C++, Express, etc.)
+│   ├── docker            # Docker scaffolding logic
+│   ├── ghost             # The "Ghost" background monitor script
+│   ├── github_setup      # Automation for GitHub integration
+│   └── guard             # Input validation and security checks
+├── systemd/              # Service files for Linux automation
+│   ├── vortex_ghost.service
+│   └── vortex_ghost.timer
+├── installer             # Installation script
+├── vortex                # Main executable entry point
+└── README.md             # You are here!
+```
 
 ---
 
