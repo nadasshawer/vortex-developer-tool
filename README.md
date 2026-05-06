@@ -76,10 +76,10 @@ Vortex includes a background engine that monitors project activity:
 | -h | N/A | Displays the help manual. |
 
 ### Example Commands
-* Initialize a Node.js Project:
+* Initialize a Node.js project:
 `./vortex -n my_project -t node`
 
-* Check System Health:
+* Check system health:
 `./vortex -m`
 
 * Create Docker container:
@@ -136,15 +136,18 @@ vortex_project/
 ├── docs/                 # Project documentation and roadmap
 │   ├── architecture.md
 │   └── milestones.md
+│
 ├── lib/                  # Core logic and modules
 │   ├── blueprints/       # Project templates (C++, Express, etc.)
 │   ├── docker            # Docker scaffolding logic
 │   ├── ghost             # The "Ghost" background monitor script
 │   ├── github_setup      # Automation for GitHub integration
 │   └── guard             # Input validation and security checks
+│
 ├── systemd/              # Service files for Linux automation
 │   ├── vortex_ghost.service
 │   └── vortex_ghost.timer
+│
 ├── installer             # Installation script
 ├── vortex                # Main executable entry point
 └── README.md             # You are here!
