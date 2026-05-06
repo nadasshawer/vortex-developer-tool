@@ -76,7 +76,7 @@ Vortex includes a background engine that monitors project activity:
 | -h | N/A | Displays the help manual. |
 
 ### Example Commands
-* Initialize a C++ Project:
+* Initialize a Node.js Project:
 `./vortex -n my_project -t node`
 
 * Check System Health:
