@@ -2,6 +2,19 @@
 
 # This is the main script that runs the vortex command. It checks for the type of project passed as an positional argument and executes the correct function to setup the project from /vortex_project/lib/blueprints
 
+# File with the channel webhook for where to send the notification
+CONFIG_FILE="$HOME/.vortex_config"
+
+# Check the config file exists, if not create it
+if [[ -f "$CONFIG_FILE" ]]; then
+    source "$CONFIG_FILE"
+else
+    echo "Discord webhook not configured in $CONFIG_FILE"
+    read -p "Please enter your Discord webhook URL: " user_d_webhook
+    echo "VORTEX_D_WEBHOOK=\"$user_d_webhook\"" > "$CONFIG_FILE"
+    echo "Webhook configuration saved to $CONFIG_FILE!"
+fi
+
 # Get the directory where the script actually lives
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
