@@ -29,7 +29,7 @@ setup_node(){
 	       	&& -f "$project_name"/README.md \
 		&& -f "$project_name"/package.json ]]; then
 
-	    cat << EOF > "$project_name"/src/app.js
+	    cat <<- EOF > "$project_name"/src/app.js
 console.log("$project_name Node.js Project is live!");
 
 // Basic logic placeholder
@@ -40,7 +40,7 @@ const start = () => {
 start();
 EOF
 
-        cat << EOF > "$project_name"/package.json
+        cat <<- EOF > "$project_name"/package.json
 {
   "name": "$project_name",
   "version": "1.0.0",
