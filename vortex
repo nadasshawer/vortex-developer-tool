@@ -111,7 +111,8 @@ if [[ ! -d "$PROJECT_NAME" ]]; then
 
     check_and_set_github_identity
     init_repo "$PROJECT_NAME"
-	echo "export VORTEX_ACTIVE_PROJECT=\"$(pwd)/$PROJECT_NAME\"" >> "$CONFIG_FILE"
+	echo ""
+	echo "VORTEX_ACTIVE_PROJECT=\"$(pwd)/$PROJECT_NAME\"" >> "$CONFIG_FILE"
 fi
 
 # If the user asked for the project stats (typed the -m flag), print their stats
