@@ -2,6 +2,10 @@
 
 # This is the installer script that the user will download on their machine and run to get the vortex system up and working on their machine.
 
+# Remove any old configuration files if any exist on the machine
+rm -f "$HOME/.vortex_config"
+rm -f /tmp/vortex_ghost_state
+
 # Find the directory this script is currently in and where the destination is (user's home dir)
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
