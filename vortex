@@ -6,13 +6,14 @@
 CONFIG_FILE="$HOME/.vortex_config"
 
 # Check the config file exists, if not create it
-if [[ -f "$CONFIG_FILE" ]]; then
+if [[ -s "$CONFIG_FILE" ]]; then
     source "$CONFIG_FILE"
 else
     echo "Discord webhook not configured in $CONFIG_FILE"
     read -p "Please enter your Discord webhook URL: " user_d_webhook
     echo "VORTEX_D_WEBHOOK=\"$user_d_webhook\"" > "$CONFIG_FILE"
     echo "Webhook configuration saved to $CONFIG_FILE!"
+	source "$CONFIG_FILE"
 fi
 
 # Get the directory where the script actually lives
@@ -109,7 +110,7 @@ if [[ ! -d "$PROJECT_NAME" ]]; then
     esac	
 
     check_and_set_github_identity
-    init_repo "$project_name"
+    init_repo "$PROJECT_NAME"
 fi
 
 # If the user asked for the project stats (typed the -m flag), print their stats
