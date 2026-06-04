@@ -23,4 +23,7 @@ systemctl --user daemon-reload
 systemctl --user enable vortex_ghost.timer
 systemctl --user start vortex_ghost.timer
 
+# Create config file for the Discord webhook URL
+touch "$HOME/.vortex_config"
+
 echo "Vortex is installed and active! Try creating your first project with: ./vortex -n [NAME] -t [TYPE]."
