@@ -4,9 +4,9 @@ After=network.target
 
 [Service]
 Type=oneshot
-ExecStart=/bin/bash %h/vortex_project/lib/ghost
+ExecStart=/bin/bash %h/vortex-developer-tool/lib/ghost
 Restart=on-failure
-WorkingDirectory=%h/vortex_project
+WorkingDirectory=%h/vortex-developer-tool
 Environment=HOME=%h
 
 [Install]
