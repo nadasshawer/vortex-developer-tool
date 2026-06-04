@@ -3,9 +3,7 @@
 # This is the script that acts like a "ghost" and watches the user's git history to remind them to commit their changes if they make 50 or more modifications in their repo directory.
 
 # cd into the project directory because we need to be inside a git repo
-cd $HOME/vortex_project || { echo "Error: Could not find project directory"; exit 1; }
-
-# File with the channel webhook for where to send the notification
+cd $HOME/vortex-developer-tool || { echo "Error: Could not find project directory"; exit 1; }
 CONFIG_FILE="$HOME/.vortex_config"
 
 # Check the config file exists, if not create it
@@ -13,9 +11,7 @@ if [[ -f "$CONFIG_FILE" ]]; then
     source "$CONFIG_FILE"
 else
     echo "Discord webhook not configured in $CONFIG_FILE"
-    read -p "Please enter your Discord webhook URL: " user_d_webhook
-    echo "VORTEX_D_WEBHOOK=\"$user_d_webhook\"" > "$CONFIG_FILE"
-    VORTEX_D_WEBHOOK="$user_d_webhook"
+    exit 1
 fi
 
 # Temp file to store the notified count so it's not lost after systemd ends
