@@ -111,7 +111,7 @@ if [[ ! -d "$PROJECT_NAME" ]]; then
 
     init_repo "$PROJECT_NAME"
 	echo ""
-	echo "VORTEX_ACTIVE_PROJECT=\"$(pwd)/$PROJECT_NAME\"" >> "$CONFIG_FILE"
+	echo "export VORTEX_ACTIVE_PROJECT=\"$(pwd)/$PROJECT_NAME\"" >> "$CONFIG_FILE"
 fi
 
 # If the user asked for the project stats (typed the -m flag), print their stats
