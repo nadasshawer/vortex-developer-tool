@@ -109,7 +109,6 @@ if [[ ! -d "$PROJECT_NAME" ]]; then
 	    ;;
     esac	
 
-    check_and_set_github_identity
     init_repo "$PROJECT_NAME"
 	echo ""
 	echo "VORTEX_ACTIVE_PROJECT=\"$(pwd)/$PROJECT_NAME\"" >> "$CONFIG_FILE"
