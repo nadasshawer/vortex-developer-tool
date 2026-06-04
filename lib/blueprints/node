@@ -29,7 +29,7 @@ setup_node(){
 	       	&& -f "$project_name"/README.md \
 		&& -f "$project_name"/package.json ]]; then
 
-	    cat << EOF > "$project_name"/src/app.js
+	        cat << EOF > "$project_name"/src/app.js
 console.log("$project_name Node.js Project is live!");
 
 // Basic logic placeholder
