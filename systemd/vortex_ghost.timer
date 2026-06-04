@@ -1,9 +1,9 @@
 [Unit]
-Description=Run Vortex Ghost Git Monitor every 15 secs
+Description=Run Vortex Ghost Git Monitor every 30 mins
 
 [Timer]
 OnStartupSec=10s
-OnUnitActiveSec=15s
+OnUnitActiveSec=15s     # changed for quick results during demos
 AccuracySec=1s
 Persistent=true
 
