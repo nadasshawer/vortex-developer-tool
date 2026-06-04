@@ -3,7 +3,6 @@
 # This is the script that acts like a "ghost" and watches the user's git history to remind them to commit their changes if they make 50 or more modifications in their repo directory.
 
 # cd into the project directory because we need to be inside a git repo
-cd $HOME/vortex-developer-tool || { echo "Error: Could not find project directory"; exit 1; }
 CONFIG_FILE="$HOME/.vortex_config"
 
 # Check the config file exists, if not create it
@@ -16,7 +15,7 @@ fi
 
 # cd into the project's active directory instead of the vortex tool directory
 PROJECT_DIR="${VORTEX_ACTIVE_PROJECT:-$HOME/vortex-developer-tool}"
-cd "$PROJECT_DIR" || { echo "Error: Could not find directory $TARGET_DIR"; exit 1; }
+cd "$PROJECT_DIR" || { echo "Error: Could not find directory $PROJECT_DIR"; exit 1; }
 
 # Temp file to store the notified count so it's not lost after systemd ends
 inserts_num_file="/tmp/vortex_ghost_state"
