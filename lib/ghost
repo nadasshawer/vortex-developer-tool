@@ -13,8 +13,13 @@ else
     exit 1
 fi
 
+if [[ -n "$VORTEX_ACTIVE_PROJECT" ]]; then
+    PROJECT_DIR="$VORTEX_ACTIVE_PROJECT"
+else
+    PROJECT_DIR="$HOME/vortex-developer-tool"
+fi
+
 # cd into the project's active directory instead of the vortex tool directory
-PROJECT_DIR="${VORTEX_ACTIVE_PROJECT:-$HOME/vortex-developer-tool}"
 cd "$PROJECT_DIR" || { echo "Error: Could not find directory $PROJECT_DIR"; exit 1; }
 
 # Temp file to store the notified count so it's not lost after systemd ends
