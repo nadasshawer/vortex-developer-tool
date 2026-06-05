@@ -27,8 +27,8 @@ last_notified_count=$(cat "$inserts_num_file" 2> /dev/null || echo 0)
 num_of_mods_in_dir(){
     # Get number of modifications in both tracked and untracked (new) files
     local tracked_stats=$(git diff HEAD --shortstat)
-    local untracked_lines=$(git ls-files --others --exclude-standard | xargs -r -I {} wc -l {} | awk '{sum += $1} END {print sum}')
-    local untracked_lines=${untracked_lines:-0}
+    local untracked_raws=$(git ls-files --others --exclude-standard | xargs -r -I {} wc -l {} | awk '{sum += $1} END {print sum}')
+    local untracked_lines=${untracked_raws:-0}
 
 	if [[ -z "$untracked_lines" ]]; then untracked_lines=0; fi
 
